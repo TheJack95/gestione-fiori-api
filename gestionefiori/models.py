@@ -9,7 +9,7 @@ class Item(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     ean_code = models.CharField(max_length=50)
     image_name = models.CharField(max_length=200, null=True)
-    image_url = models.CharField(max_length=200, null=True)
+    image_url = models.CharField(max_length=200, null=True, blank=True)
 
     class Meta:
         db_table = "items"

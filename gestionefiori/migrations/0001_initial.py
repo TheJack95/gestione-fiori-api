@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('original_price', models.DecimalField(decimal_places=2, max_digits=5, null=True)),
                 ('price', models.DecimalField(decimal_places=2, max_digits=5, null=True)),
                 ('ean_code', models.CharField(max_length=50)),
-                ('image_name', models.CharField(max_length=200, null=True)),
-                ('image_url', models.CharField(max_length=200, null=True)),
+                ('image_name', models.CharField(max_length=200)),
+                ('image_url', models.CharField(max_length=200)),
             ],
             options={
                 'db_table': 'items',
