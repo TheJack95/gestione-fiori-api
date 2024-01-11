@@ -10,12 +10,18 @@ from .serializers import ItemSerializer
 # Create your views here.
 class ItemApiView(APIView):
     def get(self, request):
-        jobs = Item.objects.all()
-        serializer = ItemSerializer(jobs, many=True)
+        items = Item.objects.all()
+        serializer = ItemSerializer(items, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = ItemSerializer(data=request.data)
+        pk = request.data.get("id")
+        if pk is not None:
+            item = get_object_or_404(Item, pk=pk)
+            serializer = ItemSerializer(item, data=request.data)
+        else:
+            serializer = ItemSerializer(data=request.data)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -24,8 +30,7 @@ class ItemApiView(APIView):
 
 class ItemDetailAPIView(APIView):
     def get_object(self, pk):
-        job = get_object_or_404(Item, pk=pk)
-        return job
+        return get_object_or_404(Item, pk=pk)
 
     def get(self, request, pk):
         item = self.get_object(pk)
