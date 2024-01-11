@@ -15,6 +15,7 @@ class ItemApiView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        print(request.data)
         pk = request.data.get("id")
         if pk is not None:
             item = get_object_or_404(Item, pk=pk)

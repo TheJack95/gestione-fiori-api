@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Item(models.Model):
-    art_number = models.CharField(max_length=50)
+    art_number = models.CharField(max_length=50, null=True)
     description = models.CharField(max_length=200)
     original_price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
