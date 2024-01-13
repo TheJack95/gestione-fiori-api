@@ -15,10 +15,9 @@ class ItemApiView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        print(request.data)
-        pk = request.data.get("id")
-        if pk is not None:
-            item = get_object_or_404(Item, pk=pk)
+        ean_code = request.data.get("ean_code")
+        if ean_code is not None:
+            item = Item.objects.get(ean_code=ean_code)
             serializer = ItemSerializer(item, data=request.data)
         else:
             serializer = ItemSerializer(data=request.data)
@@ -30,23 +29,23 @@ class ItemApiView(APIView):
 
 
 class ItemDetailAPIView(APIView):
-    def get_object(self, pk):
-        return get_object_or_404(Item, pk=pk)
+    def get_object(self, ean_code):
+        return get_object_or_404(Item, ean_code=ean_code)
 
-    def get(self, request, pk):
-        item = self.get_object(pk)
+    def get(self, request, ean_code):
+        item = self.get_object(ean_code)
         serializer = ItemSerializer(item)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        item = self.get_object(pk)
+    def put(self, request, ean_code):
+        item = self.get_object(ean_code)
         serializer = ItemSerializer(item, data=request.data['data'])
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        item = self.get_object(pk)
+    def delete(self, request, ean_code):
+        item = self.get_object(ean_code)
         item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

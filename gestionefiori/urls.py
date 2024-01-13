@@ -6,7 +6,7 @@ urlpatterns = [
     path("items/",
          ItemApiView.as_view(),
          name="item-list"),
-    path("items/<int:pk>/",
+    path("items/<str:ean_code>/",
          ItemDetailAPIView.as_view(),
          name="item-detail"),
 ]

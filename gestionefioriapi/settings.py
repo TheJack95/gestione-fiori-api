@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'gestionefioriapi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3_backup',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gestione-fiori',
+        'USER': 'root',
+        'PASSWORD': 'password',
+        'HOST': '192.168.178.181',
+        'PORT': '3306',
     }
 }
 
