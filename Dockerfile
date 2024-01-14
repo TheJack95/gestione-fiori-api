@@ -1,22 +1,28 @@
+# Usa un'immagine di base con Python
 FROM python:3.10
 
-ENV PYTHONDONTWRITEBYTECODE 1
+# Imposta l'ambiente di produzione per Django
+ENV DJANGO_SETTINGS_MODULE=myproject.settings.production
 
+# Imposta la variabile d'ambiente PYTHONUNBUFFERED in modo che Python output sia inviato direttamente sulla console senza buffering
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir /code
+# Crea una directory di lavoro all'interno del container
+WORKDIR /app
 
-WORKDIR /code
+# Copia il file requirements.txt nella directory del container
+COPY requirements.txt /app/
 
-RUN pip install --upgrade pip
+# Installa le dipendenze del progetto
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY requirements.txt /code/
+# Copia il codice sorgente del progetto nella directory del container
+COPY . /app/
 
-RUN pip install -r requirements.txt
-
-COPY . /code/
-
+# Esponi la porta su cui il server Django sarà in ascolto
 EXPOSE 8000
-CMD ["python", "manage.py", "makemihrations"]
+
+# Esempio di comando per eseguire le migrazioni e avviare il server Django
+CMD ["python", "manage.py", "makemigrations"]
 CMD ["python", "manage.py", "migrate"]
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

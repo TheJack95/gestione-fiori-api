@@ -16,10 +16,10 @@ class ItemApiView(APIView):
 
     def post(self, request):
         ean_code = request.data.get("ean_code")
-        if ean_code is not None:
+        try:
             item = Item.objects.get(ean_code=ean_code)
             serializer = ItemSerializer(item, data=request.data)
-        else:
+        except Item.DoesNotExist:
             serializer = ItemSerializer(data=request.data)
 
         if serializer.is_valid():
