@@ -2,7 +2,7 @@
 FROM python:3.10
 
 # Imposta l'ambiente di produzione per Django
-ENV DJANGO_SETTINGS_MODULE=myproject.settings.production
+ENV DJANGO_SETTINGS_MODULE=gestionefiori.settings.production
 
 # Imposta la variabile d'ambiente PYTHONUNBUFFERED in modo che Python output sia inviato direttamente sulla console senza buffering
 ENV PYTHONUNBUFFERED 1
@@ -23,6 +23,6 @@ COPY . /app/
 EXPOSE 8000
 
 # Esempio di comando per eseguire le migrazioni e avviare il server Django
-CMD ["python", "manage.py", "makemigrations"]
-CMD ["python", "manage.py", "migrate"]
+RUN python manage.py makemigrations
+RUN python manage.py migrate
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

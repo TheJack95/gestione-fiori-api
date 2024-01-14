@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'gestionefioriapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gestione-fiori',
+        'NAME': 'gestionefiori',
         'USER': 'root',
         'PASSWORD': 'password',
         'HOST': '192.168.178.181',
